@@ -6,7 +6,12 @@ import ctypes
 from ctypes import *
 from datetime import datetime
 import time
-cr95hf = ctypes.CDLL('libCR95HF.so');
+import os 
+
+os.path.dirname(os.path.abspath(__file__))
+
+cr95hf = ctypes.CDLL(os.path.dirname(
+    os.path.abspath(__file__)) + '/src/libCR95HF.so')
 
 ADDRESSES = 128
 protocol_selected = 1 #ISO15693 = 1, ISO14443-A = 2, ISO14443-B = 3, ISO18092 = 4
