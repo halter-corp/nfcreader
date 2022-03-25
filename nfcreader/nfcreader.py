@@ -23,31 +23,31 @@ def USBConnect(): #Expect '0'
 
 # Send an echo to the MCU aboard the NFC Reader.
 def Echo(): #Expected response of '5500'
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z14CR95HFlib_EchoPc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
 
 # Request the revision number of the MCU aboard the NFC reader.
 def MCUrev():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z16CR95HFlib_MCUVerPc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
 
 # Get interface pin state from nfc reader.	
 def getInterfacePinState():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z30CR95HFlib_getInterfacePinStatePc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
 
 # Get ID number of IC.
 def Idn(): 
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z13CR95HFlib_IdnPc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
 
 # Select command for NFC reader to select which NFC protocol standard to use.
 def Select(request = 'ISO15693'):
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	val = b'010D' # Default to ISO15693
 	if request == b'ISO15693':
 		val = b'010D'
@@ -63,7 +63,7 @@ def Select(request = 'ISO15693'):
 
 # SendReceive function to send generic requests to MCU, such as reads, writes, IDn or inventory requests.
 def SendReceive(request= b'260100'):
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	strRequest=c_char_p(request)
 	res=cr95hf._Z21CR95HFlib_SendReceivePcS_(strRequest,strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
@@ -113,31 +113,31 @@ def Write_Block(location = '2',data = '00000000'): #remember to add check that d
 
 # Turn off field to save power on NFC Reader.
 def FieldOff():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z18CR95HFlib_FieldOffPc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
 
 #R Reset SPI connection to NFC reader module.
 def ResetSPI():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z18CR95HFlib_ResetSPIPc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"));
 
 # Send an IRQ to NFC Reader.
 def SendIRQPulse():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z22CR95HFlib_SendIRQPulsePc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"));
 
 # Send NSS pulse to NFC Reader.
 def SendNSSPulse():
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	res=cr95hf._Z22CR95HFlib_SendNSSPulsePc(strAnswer)
 	return (res,strAnswer.value.decode("utf-8"));
 
 # Interact directly with MCU aboard the NFC reader by sending commands in the required format to it.
 def STCmd(request=b'010803620100'): #default do protocol select ISO15693
-	strAnswer= ctypes.create_string_buffer(b'\000',50)
+	strAnswer= ctypes.create_string_buffer(b'\000',256)
 	strRequest=c_char_p(request)
 	res=cr95hf._Z15CR95HFlib_STCmdPcS_(strRequest,strAnswer)
 	return (res,strAnswer.value.decode("utf-8"))
