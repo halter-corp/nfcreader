@@ -48,19 +48,15 @@ def Idn():
 # Select command for NFC reader to select which NFC protocol standard to use.
 def Select(request = 'ISO15693'):
 	strAnswer= ctypes.create_string_buffer(b'\000',50)
-	val = ''
-	if request == 'ISO15693':
+	val = b'010D' # Default to ISO15693
+	if request == b'ISO15693':
 		val = b'010D'
-		protocol_selected = 1
-	elif request == 'ISO14443-A':
+	elif request == b'ISO14443-A':
 		val = b'0200'
-		protocol_selected = 2
-	elif request == 'ISO14443-B':
+	elif request == b'ISO14443-B':
 		val = b'0301'
-		protocol_selected = 3
-	elif request == 'ISO18092':
+	elif request == b'ISO18092':
 		val = b'0451'
-		protocol_selected = 4
 	strRequest=c_char_p(val)
 	res=cr95hf._Z16CR95HFlib_SelectPcS_(strRequest,strAnswer)
 	return (res,strAnswer.value.decode("ASCII"))
